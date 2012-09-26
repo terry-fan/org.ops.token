@@ -2,6 +2,9 @@ package org.ops.token;
 
 import java.util.Map;
 import java.util.LinkedHashMap;
+import java.util.Date;
+import java.util.UUID;
+
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.DataInputStream;
@@ -27,9 +30,20 @@ public class App
         Map<String, Object> data = new LinkedHashMap<String, Object>();
     
         data.put("ver", "0.0.3");
-        data.put("doc", "1234567890");
-        data.put("sig", "abcdefghij");
-   
+        data.put("st", new java.util.Date());
+        data.put("et", new java.util.Date());
+        data.put("cn", "com.htc.generic");
+        data.put("an", java.util.UUID.randomUUID().toString());
+
+        Map<String, Object> ext = new LinkedHashMap<String, Object>();
+        ext.put("dataCenterId", java.util.UUID.randomUUID());
+        ext.put("virtualDeviceId", java.util.UUID.randomUUID());
+        ext.put("handsetDeviceId", java.util.UUID.randomUUID());
+        ext.put("isEmailVerified", true);
+        ext.put("country", "TW");
+
+        data.put("ext", ext);
+
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ObjectMapper om = new ObjectMapper(new BsonFactory());
